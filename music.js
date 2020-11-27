@@ -24,6 +24,7 @@ function get(url) {
   return new Promise(function(resolve, reject){
     var request = new XMLHttpRequest();
     request.open('GET', url, true);
+    request.send();
     request.onload(function() {
       if (request.status == 200) {
         resolve(JSON.parse(request.response));
