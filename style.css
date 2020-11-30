@@ -4,7 +4,7 @@
 
 @media (max-width: 575.98px) {
     .centered-container {
-        width: 100%;
+        width: 95%;
     }
 }
 
@@ -144,4 +144,22 @@ p {
     height: 1em;
     width: 1em;
     
+}
+
+.list-item-track img {
+    width: 40px;
+}
+
+.playButton svg {
+    color: rgba(207, 207, 207, 0.856);
+    opacity: 0;
+    transition: 0.2s ease-out;
+    -webkit-backdrop-filter: brightness(1);
+}
+
+.playButton:hover svg {
+    opacity: 100;
+    transition: 0.1s ease-in;
+    cursor: pointer;
+    -webkit-backdrop-filter: brightness(0.7);
 }

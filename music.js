@@ -11,12 +11,34 @@ musicIntersts.add = function(trackId) {
   for (let track of lastSearch.results) {
     if (track.trackId == trackId) {
       musicIntersts.push(track);
-      let text = `${track.trackName} - ${track.artistName}`;
-      ($(`<li class="list-group-item d-flex justify-content-between align-items-center" trackId="${track.trackId}">${text}<span class="badge-remove badge badge-outline-dark badge-pill">- remove</span></li>`))
-      .appendTo($('#interests-list'));
+      $('#interests-list').append(createListPlayableItem(track));
     }
   }
 }
+
+function createListPlayableItem(track) {
+  return $(`
+    <li class="list-group-item list-item-track d-flex justify-content-between align-items-center" trackId="${track.trackId}"">
+      <span class="playButton" style="background: url(${track.artworkUrl60})">
+        <svg width="40px" height="40px" viewBox="0 0 16 16" class="bi bi-play" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.804 8L5 4.633v6.734L10.804 8zm.792-.696a.802.802 0 0 1 0 1.392l-6.363 3.692C4.713 12.69 4 12.345 4 11.692V4.308c0-.653.713-.998 1.233-.696l6.363 3.692z"/></svg>
+      </span>
+      ${track.trackName} - ${track.artistName}
+      <span class="badge-remove badge badge-outline-dark badge-pill">
+        - remove
+      </span>
+    </li>`)
+}
+
+$('body').on('click', '.playButton', function() {
+  let trackId = $(this).parent().attr('trackId');
+  for (let track of musicIntersts) {
+    if (track.trackId == trackId) {
+      player.play(track);
+      return;
+    }
+  }
+  
+})
 
 $('body').on('click', '.badge-remove', function() {
   musicIntersts.remove($(this).parent().attr('trackId'));
@@ -65,7 +87,7 @@ function initializePlaylist(response) {
     playlist = shuffle(playlist);
     for (let track of playlist) {
       let text = `${track.trackName} - ${track.artistName}`;
-        $(`<li class="list-group-item d-flex justify-content-between align-items-center" trackId="${track.trackId}">${text}<span class="badge badge-outline-dark badge-pill">Play</span></li>`)
+        $(`<li class="list-group-item d-flex justify-content-between align-items-center" trackId="${track.trackId}">${text}<span class="badge badge-outline-dark badge-pill"><a target="_blank" href = ${track.trackViewUrl}>Play</a></span></li>`)
         .appendTo('#playlist');
     }
     $('#myTab a[href="#playlist-page"]').tab('show')
@@ -150,4 +172,18 @@ function notify(title,content) {
   $('#modalTitle').text(title);
   $('#modalContent').text(content);
   $('#modal').modal('show');
+}
+
+let player = {
+  onPlay: false,
+  currentTrack: null,
+  play: function(track) {
+    if (this.onPlay) {
+      this.currentTrack.pause();
+    }
+    this.currentTrack = new Audio(track.previewUrl);
+    this.currentTrack.play();
+    this.onPlay = true;
+
+  }
 }
