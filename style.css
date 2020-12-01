@@ -4,37 +4,37 @@
 
 @media (max-width: 575.98px) {
     .centered-container {
-        width: 95%;
+        width: 95vw;
     }
 }
 
 @media (min-width: 576px) and (max-width: 767.98px) {
     .centered-container {
-        width: 80%;
+        width: 80vw;
     }
 }
 
 @media (min-width: 768px) and (max-width: 991.98px) { 
     .centered-container {
-        width: 70%;
+        width: 70vw;
     }
 }
 
 @media (min-width: 992px) and (max-width: 1199.98px) { 
     .centered-container {
-        width: 60%;
+        width: 60vw;
     }
 }
 
 @media (min-width: 1200px) and (max-width: 1599.98px) { 
     .centered-container {
-        width: 50%;
+        width: 50vw;
     }
 }
 
 @media (min-width: 1600px) { 
     .centered-container {
-        width: 40%;
+        width: 40vw;
     }
 }
 
@@ -42,6 +42,10 @@
 
 .btn-outline-dark, .badge-outline-dark {
     border: 1px solid lightgray;
+}
+
+.btn-outline-dark:hover {
+    background: black;
 }
 
 .badge-outline-dark {
@@ -131,6 +135,12 @@
     border-bottom-left-radius: 0;
 }
 
+.track-text {
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-right: auto;
+}
+
 h1 {
     margin-top: 40px;
 }
@@ -162,4 +172,23 @@ p {
     transition: 0.1s ease-in;
     cursor: pointer;
     -webkit-backdrop-filter: brightness(0.7);
+}
+
+#stopBtn {
+    display: none;
+    color: white;
+    position: fixed;
+    top: 7px;
+    right: 15px;
+    background: black;
+    padding: 1px 15px;
+    border-radius: 100px;
+}
+
+#stopBtn:hover {
+    cursor: pointer;
+    color: black;
+    background: white;
+    transition: 0.1s ease-in;
+    border: 1px solid lightgray;
 }
